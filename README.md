@@ -26,3 +26,9 @@ npm start
 ```
 
 You can then navigate to http://localhost:4002/ to access the GraphQL Playground hosted by this service.
+
+## Working through the demo
+
+The master branch contains the solution to the demo which was reached by the end of the presentation.
+
+If you wish to work through these steps yourself, please checkout the develop branch for a blank slate.
