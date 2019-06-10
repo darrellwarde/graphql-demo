@@ -46,6 +46,21 @@ const typeDefs = gql`
     authorId: String!
   }
 
+  input CreatePostInput {
+    content: String!
+    authorId: String!
+  }
+
+  type CreatePostMutationResponse {
+    success: Boolean
+    message: String
+    post: Post
+  }
+
+  type Mutation {
+    createPost(input: CreatePostInput!): CreatePostMutationResponse!
+  }
+
   type Query {
     post(id: String!): Post
     posts(authorId: String): [Post!]!
@@ -54,6 +69,23 @@ const typeDefs = gql`
 
 const resolvers = {
   DateTime: GraphQLDateTime,
+  Mutation: {
+    createPost: (obj, args) => {
+      const input = args.input;
+      const post = {
+        id: uuid(),
+        content: input.content,
+        createTime: moment().format(),
+        authorId: input.authorId
+      };
+      posts.push(post);
+      return {
+        success: true,
+        message: "Post created successfully!",
+        post
+      };
+    }
+  },
   Query: {
     post: (obj, args) => {
       return posts.filter(post => {
